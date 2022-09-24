@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
 
 class CustomIcon extends StatefulWidget {
+  String iconPath;
+  String iconLabel;
 
-  IconData icon;
-
-  CustomIcon({Key? key, 
-    required this.icon,
-  }) : super(key: key);
+  CustomIcon({Key? key, required this.iconLabel, required this.iconPath})
+      : super(key: key);
 
   @override
   State<CustomIcon> createState() => _CustomIconState();
@@ -20,14 +20,12 @@ class _CustomIconState extends State<CustomIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-          decoration: BoxDecoration(
-            color: kMarronColor,
-            borderRadius: BorderRadius.circular(10)
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Icon(widget.icon, size: 25, color: Colors.white,
-          ))
-      );
+        decoration: BoxDecoration(
+            color: kMarronColor, borderRadius: BorderRadius.circular(15)),
+        child: IconButton(
+          icon: SvgPicture.asset(widget.iconPath,
+              color: Colors.white, semanticsLabel: widget.iconLabel),
+          onPressed: () {},
+        ));
   }
 }
