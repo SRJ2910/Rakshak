@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/custom_widgets/custom_icon.dart';
 import 'package:rakshak/custom_widgets/cutom_bottom_nav_bar.dart';
+import 'package:rakshak/pages/guardian_mode.dart';
 import 'package:rakshak/pages/guardians.dart';
+import 'package:rakshak/pages/sos_history.dart';
 
 import 'main_page.dart';
 
@@ -20,10 +22,8 @@ class _HomePageState extends State<HomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     MainPage(),
     Guardians(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    SOShistory(),
+    GuardianMode(),
   ];
 
   void _onItemTapped(int index) {
