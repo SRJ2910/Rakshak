@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rakshak/custom_widgets/constants.dart';
+import 'package:rakshak/custom_widgets/custom_icon.dart';
 import 'package:rakshak/custom_widgets/cutom_bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -80,7 +82,7 @@ class MainPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const Icon(Icons.settings_applications_sharp)
+                const Icon(Icons.settings, color: kMarronColor, size: 25,)
               ],
             ),
             const Padding(
@@ -92,15 +94,75 @@ class MainPage extends StatelessWidget {
                     width: 300,
                   ),
                 )),
-            const Padding(
-                padding: EdgeInsets.symmetric(vertical: 24),
-                child: Card(
-                  color: Colors.grey,
-                  child: SizedBox(
-                    height: 200,
-                    width: 300,
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 25.0,
+                      mainAxisSpacing: 25.0,
+                      shrinkWrap: true,
+                      children: [
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('Fake Call', style: TextStyle(fontSize: 12),),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('Where To', style: TextStyle(fontSize: 12),),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('SOS History', style: TextStyle(fontSize: 12),),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('Guardians', style: TextStyle(fontSize: 12),),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('Safe Shake', style: TextStyle(fontSize: 12),),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            CustomIcon(icon: Icons.ac_unit_outlined),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text('Helpline', style: TextStyle(fontSize: 12),),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ))
           ],
         ),
       ),
