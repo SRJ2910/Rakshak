@@ -14,38 +14,41 @@ class CustomBottomNavigationBar extends StatefulWidget {
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-      Container(
-        decoration: const BoxDecoration(color: Colors.white,
+    return Container(
+      color: Colors.white,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+        Container(
+          decoration: BoxDecoration(color: Colors.white,
+              // ignore: prefer_const_literals_to_create_immutables
+              boxShadow: [BoxShadow(blurRadius: 4, color: Colors.grey.shade300)]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // ignore: prefer_const_literals_to_create_immutables
-            boxShadow: [BoxShadow(blurRadius: 5, color: Colors.black)]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Icon(Icons.access_alarm_rounded),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Icon(Icons.access_alarm_rounded),
-            )
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 254, 83, 83),
-            borderRadius: BorderRadius.circular(1000)
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Icon(Icons.access_alarm_rounded),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Icon(Icons.access_alarm_rounded),
+              )
+            ],
           ),
-          child: Icon(Icons.circle_notifications, size: 75,)
         ),
-      )
-    ]);
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 254, 83, 83),
+              borderRadius: BorderRadius.circular(1000)
+            ),
+            child: Icon(Icons.circle_notifications, size: 75,)
+          ),
+        )
+      ]),
+    );
   }
 }
