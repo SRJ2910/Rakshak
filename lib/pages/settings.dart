@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -19,18 +17,18 @@ class SettingPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Icon(
-                    Icons.arrow_back,
-                    size: 25,
-                    color: Colors.black,
-                  ),
                   style: TextButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    size: 25,
+                    color: Colors.black,
+                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 const Text(
@@ -38,6 +36,9 @@ class SettingPage extends StatelessWidget {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 )
               ],
+            ),
+            const SizedBox(
+              height: 24,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,9 +48,20 @@ class SettingPage extends StatelessWidget {
                   width: 1,
                 ),
                 Column(
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
-                    const Text('Yashesh Bhavsar'),
-                    const Text('+91 87806 54420'),
+                    const Text(
+                      'Yashesh Bhavsar',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    const Text(
+                      '+91 87806 54420',
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -58,21 +70,41 @@ class SettingPage extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 32,
+            ),
             Row(
               children: [
                 const Icon(Icons.key),
+                const SizedBox(
+                  width: 16,
+                ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
-                    const Text('Change SOS pin'),
+                    const Text('Change SOS pin',
+                        style: TextStyle(fontSize: 18)),
+                    const SizedBox(
+                      height: 3,
+                    ),
                     const Text(
-                        'SOS pin is required to switch OFF\nthe SOS alert'),
+                      'SOS pin is required to switch OFF\nthe SOS alert',
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
                   ],
                 )
               ],
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Row(
               children: [
-                const Text('Notifications'),
+                const Text('Notifications', style: TextStyle(fontSize: 18)),
+                const SizedBox(
+                  width: 6,
+                ),
                 Expanded(
                   child: Container(
                     height: 1,
@@ -80,51 +112,87 @@ class SettingPage extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+            const SizedBox(
+              height: 16,
             ),
             Row(
               children: [
                 Row(
                   children: [
                     const Icon(Icons.mobile_friendly_sharp),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     Column(
-                      children: [
-                        const Text('Safe Shake'),
-                        const Text('Switch ON to listen for device shake'),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Safe Shake', style: TextStyle(fontSize: 18)),
+                        Text(
+                          'Switch ON to listen for device shake',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     )
                   ],
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 16,
             ),
             Row(
               children: [
                 Row(
                   children: [
                     const Icon(Icons.location_on_outlined),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     Column(
-                      children: [
-                        const Text('Location'),
-                        const Text('Switch ON to share the location'),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Location', style: TextStyle(fontSize: 18)),
+                        Text(
+                          'Switch ON to share the location',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ],
                     )
                   ],
                 ),
               ],
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Row(
               children: [
                 const Icon(Icons.message),
+                const SizedBox(
+                  width: 16,
+                ),
                 Column(
-                  children: [
-                    const Text('Customized Message'),
-                    const Text('Customize your SOS'),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text('Customized Message', style: TextStyle(fontSize: 18)),
+                    Text(
+                      'Customize your SOS',
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
                   ],
                 )
               ],
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Row(
               children: [
-                const Text('Application'),
+                const Text('Application', style: TextStyle(fontSize: 18)),
+                const SizedBox(
+                  width: 6,
+                ),
                 Expanded(
                   child: Container(
                     height: 1,
@@ -133,16 +201,28 @@ class SettingPage extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: [
-                const Icon(Icons.info),
-                const Text('About Us'),
-              ],
+            const SizedBox(
+              height: 16,
             ),
             Row(
-              children: [
-                const Icon(Icons.share),
-                const Text('Share'),
+              children: const [
+                Icon(Icons.info),
+                SizedBox(
+                  width: 16,
+                ),
+                Text('About Us', style: TextStyle(fontSize: 18)),
+              ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: const [
+                Icon(Icons.share),
+                SizedBox(
+                  width: 16,
+                ),
+                Text('Share', style: TextStyle(fontSize: 18)),
               ],
             ),
           ],
