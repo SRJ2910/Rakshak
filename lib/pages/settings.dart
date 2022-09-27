@@ -58,8 +58,18 @@ class _SettingPageState extends State<SettingPage> {
                   width: 1,
                 ),
                 Column(
-                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(200),),
+                      child:
+                          Image.asset('assets/dummy_dp.png'),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
                     const Text(
                       'Yashesh Bhavsar',
                       style:
