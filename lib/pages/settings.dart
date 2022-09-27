@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:rakshak/custom_widgets/constants.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
+
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  bool statusSafeShake = false;
+  bool statusLocation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -118,24 +128,35 @@ class SettingPage extends StatelessWidget {
             ),
             Row(
               children: [
-                Row(
-                  children: [
-                    const Icon(Icons.mobile_friendly_sharp),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Safe Shake', style: TextStyle(fontSize: 18)),
-                        Text(
-                          'Switch ON to listen for device shake',
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
-                    )
-                  ],
+                const Icon(Icons.mobile_friendly_sharp),
+                const SizedBox(
+                  width: 16,
                 ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Safe Shake', style: TextStyle(fontSize: 18)),
+                      Text(
+                        'Switch ON to listen for device shake',
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                FlutterSwitch(
+                  width: 30.0,
+                  height: 15.0,
+                  valueFontSize: 12.0,
+                  toggleSize: 6.0,
+                  value: statusSafeShake,
+                  onToggle: (val) {
+                    setState(() {
+                      statusSafeShake = val;
+                    });
+                  },
+                  activeColor: kMarronColor,
+                )
               ],
             ),
             const SizedBox(
@@ -143,24 +164,35 @@ class SettingPage extends StatelessWidget {
             ),
             Row(
               children: [
-                Row(
-                  children: [
-                    const Icon(Icons.location_on_outlined),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Location', style: TextStyle(fontSize: 18)),
-                        Text(
-                          'Switch ON to share the location',
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
-                    )
-                  ],
+                const Icon(Icons.location_on_outlined),
+                const SizedBox(
+                  width: 16,
                 ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Location', style: TextStyle(fontSize: 18)),
+                      Text(
+                        'Switch ON to share the location',
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                FlutterSwitch(
+                  width: 30.0,
+                  height: 15.0,
+                  valueFontSize: 12.0,
+                  toggleSize: 6.0,
+                  value: statusLocation,
+                  onToggle: (val) {
+                    setState(() {
+                      statusLocation = val;
+                    });
+                  },
+                  activeColor: kMarronColor,
+                )
               ],
             ),
             const SizedBox(
