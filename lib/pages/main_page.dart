@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/custom_widgets/custom_icon.dart';
+import 'package:rakshak/pages/settings.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({
@@ -46,7 +47,13 @@ class MainPage extends StatelessWidget {
                 IconButton(
                   icon: SvgPicture.asset('assets/icons8-settings.svg',
                       color: kMarronColor, semanticsLabel: 'Setting'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SettingPage()),
+                        );
+                  },
                 )
               ],
             ),
