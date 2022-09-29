@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/login.dart';
-import 'package:rakshak/pages/signin.dart';
+import 'package:rakshak/pages/splashscreen.dart';
+import 'package:rakshak/utils/global.dart';
+import 'package:rakshak/utils/locator.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  locator.registerLazySingleton(() => GlobalServices());
   runApp(const MyApp());
 }
 
@@ -14,11 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Rakshak",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      navigatorKey: locator<GlobalServices>().navigatorKey,
+      home: const SplashScreen(),
     );
   }
 }
