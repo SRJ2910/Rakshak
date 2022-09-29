@@ -20,12 +20,15 @@ class _CustomIconState extends State<CustomIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: kMarronColor, borderRadius: BorderRadius.circular(15)),
-        child: IconButton(
-          icon: SvgPicture.asset(widget.iconPath,
-              color: Colors.white, semanticsLabel: widget.iconLabel),
-          onPressed: () {},
-        ));
+      decoration: BoxDecoration(
+          color: kMarronColor, borderRadius: BorderRadius.circular(15)),
+      child: SvgPicture.asset(
+        widget.iconPath,
+        color: Colors.white,
+        semanticsLabel: widget.iconLabel,
+        height: 40,
+        width: 40,
+      ),
+    );
   }
 }

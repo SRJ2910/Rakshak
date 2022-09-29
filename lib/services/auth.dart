@@ -6,6 +6,7 @@ import 'package:rakshak/services/api_v1.dart';
 import 'package:rakshak/utils/const.dart';
 import 'package:rakshak/utils/global.dart';
 import 'package:rakshak/utils/locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   const AuthService();
@@ -28,6 +29,11 @@ class AuthService {
 
   /// Save cookies after sign in/up
   Future<void> saveCookie(Response response) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("User_Name", response.data['name']);
+    prefs.setString("User_phone", response.data['phone']);
+    prefs.setString("User_id", response.data['_id']);
+
     List<Cookie> cookies = [Cookie("userId", response.data['_id'])];
     final cj = await ApiV1Service.getCookieJar();
     await cj.saveFromResponse(Uri.parse(constant.apiUrl), cookies);

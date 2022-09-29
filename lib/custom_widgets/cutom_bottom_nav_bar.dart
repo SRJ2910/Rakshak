@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rakshak/pages/home_page.dart';
 
 import 'constants.dart';
 
@@ -30,7 +31,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 child: IconButton(
                   icon: SvgPicture.asset('assets/icons8-home.svg',
                       color: kMarronColor, semanticsLabel: 'Setting'),
-                  onPressed: () {},
+                  onPressed: () {
+                    index.value = 0;
+                  },
                 )),
             Padding(
               padding: EdgeInsets.all(12.0),

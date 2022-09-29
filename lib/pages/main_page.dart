@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/custom_widgets/custom_icon.dart';
+import 'package:rakshak/pages/guardian_mode.dart';
+import 'package:rakshak/pages/guardians.dart';
+import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/settings.dart';
+import 'package:rakshak/services/guardian.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   MainPage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   final Widget svg = SvgPicture.asset('assets/icons8-settings.svg',
       semanticsLabel: 'Acme Logo');
 
@@ -49,10 +58,10 @@ class MainPage extends StatelessWidget {
                       color: kMarronColor, semanticsLabel: 'Setting'),
                   onPressed: () {
                     Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SettingPage()),
-                        );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingPage()),
+                    );
                   },
                 )
               ],
@@ -116,36 +125,46 @@ class MainPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        Column(
-                          children: [
-                            CustomIcon(
-                              iconPath:
-                                  'assets/history_FILL0_wght400_GRAD0_opsz48.svg',
-                              iconLabel: 'sosHistory',
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(
-                                'SOS History',
-                                style: TextStyle(fontSize: 12),
+                        GestureDetector(
+                          onTap: () {
+                            index.value = 2;
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                iconPath:
+                                    'assets/history_FILL0_wght400_GRAD0_opsz48.svg',
+                                iconLabel: 'sosHistory',
                               ),
-                            )
-                          ],
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  'SOS History',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            CustomIcon(
-                              iconPath: 'assets/Artboard 100134.svg',
-                              iconLabel: 'Guardian',
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(
-                                'Guardians',
-                                style: TextStyle(fontSize: 12),
+                        GestureDetector(
+                          onTap: () {
+                            index.value = 1;
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                iconPath: 'assets/Artboard 100134.svg',
+                                iconLabel: 'Guardian',
                               ),
-                            )
-                          ],
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  'Guardians',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         Column(
                           children: [

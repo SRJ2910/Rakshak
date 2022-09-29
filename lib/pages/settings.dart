@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
+import 'package:rakshak/pages/login.dart';
+import 'package:rakshak/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -12,6 +15,21 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   bool statusSafeShake = false;
   bool statusLocation = false;
+  String name = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // getCacheddata();
+    super.initState();
+  }
+
+  getCacheddata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name')!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +81,15 @@ class _SettingPageState extends State<SettingPage> {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(200),),
-                      child:
-                          Image.asset('assets/dummy_dp.png'),
+                        borderRadius: BorderRadius.circular(200),
+                      ),
+                      child: Image.asset('assets/dummy_dp.png'),
                     ),
                     const SizedBox(
                       height: 3,
                     ),
-                    const Text(
-                      'Yashesh Bhavsar',
+                    Text(
+                      name,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
                     ),
@@ -115,6 +133,34 @@ class _SettingPageState extends State<SettingPage> {
                   ],
                 )
               ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            GestureDetector(
+              child: Row(
+                children: [
+                  const Icon(Icons.logout),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Log Out', style: TextStyle(fontSize: 18)),
+                    ],
+                  )
+                ],
+              ),
+              onTap: () async {
+                await AuthService().signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => LoginPage()),
+                  (route) => false,
+                );
+              },
             ),
             const SizedBox(
               height: 16,
