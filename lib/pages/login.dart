@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:rakshak/model/signupinput.dart';
 import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/signin.dart';
+import 'package:rakshak/services/auth.dart';
+import 'package:rakshak/utils/global.dart';
+import 'package:rakshak/utils/locator.dart';
 import '../custom_widgets/constants.dart';
 import '../custom_widgets/text_field_shadow.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  AuthService auth = const AuthService();
+  final SignUpInput _signUpInput = SignUpInput();
 
   @override
   Widget build(BuildContext context) {
@@ -40,58 +47,81 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  const TextFieldShadow(
+                  TextFieldShadow(
                     labelText: 'EMAIL ID',
                     icon: Icons.person,
                     textInputType: TextInputType.emailAddress,
+                    onChanged: (e) {
+                      _signUpInput.email = e;
+                    },
                   ),
                   const SizedBox(
                     height: 8,
                   ),
-                  const TextFieldShadow(
+                  TextFieldShadow(
                     labelText: 'PASSWORD',
                     icon: Icons.person,
                     textInputType: TextInputType.visiblePassword,
                     obscureText: true,
+                    onChanged: (e) {
+                      _signUpInput.password = e;
+                    },
+                    validator: (e) {
+                      if (_signUpInput.password!.length < 8) {
+                        return "Password atleat 8 characters";
+                      }
+                      return null;
+                    },
                   ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      TextButton(
-                        onPressed: (){
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
-                        );
-                        },
-                        child: Container(
-                            alignment: Alignment.centerRight,
-                            width: 125,
-                            decoration: BoxDecoration(
-                                color: kMarronColor,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: kMarronColor,
-                                      offset: Offset(2.0, 2.0))
-                                ]),
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Text(
-                                    'LOGIN',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                  Padding(
+                      padding: const EdgeInsets.only(top: 45, bottom: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox(
+                            width: 5,
+                            height: 5,
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              bool check =
+                                  await auth.signInRequest(_signUpInput);
+                              if (check) {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                  (route) => false,
+                                );
+                              } else {
+                                locator<GlobalServices>()
+                                    .errorSnackBar("Invalid Credentials");
+                              }
+                            },
+                            child: Container(
+                                alignment: Alignment.centerRight,
+                                width: 125,
+                                decoration: BoxDecoration(
+                                    color: kMarronColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: kMarronColor,
+                                          offset: Offset(2.0, 2.0))
+                                    ]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Text(
+                                        'LOGIN',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
