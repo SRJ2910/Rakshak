@@ -21,8 +21,6 @@ class AuthService {
     if ((response.statusCode ?? 400) > 300) {
       return false;
     }
-    print(response.statusCode);
-    print(response.data['_id']);
     await saveCookie(response);
     return true;
   }
@@ -30,9 +28,9 @@ class AuthService {
   /// Save cookies after sign in/up
   Future<void> saveCookie(Response response) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString("User_Name", response.data['name']);
-    prefs.setString("User_phone", response.data['phone']);
-    prefs.setString("User_id", response.data['_id']);
+    await prefs.setString("User_Name", response.data['name']);
+    await prefs.setInt("User_phone", response.data['phone']);
+    await prefs.setString("User_id", response.data['_id']);
 
     List<Cookie> cookies = [Cookie("userId", response.data['_id'])];
     final cj = await ApiV1Service.getCookieJar();
@@ -54,8 +52,6 @@ class AuthService {
   /// Send sign in request
   ///
   Future<bool> signInRequest(SignUpInput input) async {
-    print(input.email);
-    print(input.password);
     final response = await ApiV1Service.postRequest(
       '/Api/signin',
       data: {
@@ -67,8 +63,6 @@ class AuthService {
       locator<GlobalServices>().errorSnackBar("Invalid Credentials");
       return false;
     }
-    print(response.statusCode);
-    print(response.toString());
     await saveCookie(response);
     return true;
   }

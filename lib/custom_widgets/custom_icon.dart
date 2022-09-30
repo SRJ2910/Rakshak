@@ -22,12 +22,15 @@ class _CustomIconState extends State<CustomIcon> {
     return Container(
       decoration: BoxDecoration(
           color: kMarronColor, borderRadius: BorderRadius.circular(15)),
-      child: SvgPicture.asset(
-        widget.iconPath,
-        color: Colors.white,
-        semanticsLabel: widget.iconLabel,
-        height: 40,
-        width: 40,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SvgPicture.asset(
+          widget.iconPath,
+          color: Colors.white,
+          semanticsLabel: widget.iconLabel,
+          height: 30,
+          width: 30,
+        ),
       ),
     );
   }

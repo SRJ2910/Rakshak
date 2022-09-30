@@ -16,18 +16,19 @@ class _SettingPageState extends State<SettingPage> {
   bool statusSafeShake = false;
   bool statusLocation = false;
   String name = "";
+  int phone = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
-    // getCacheddata();
+    getCacheddata();
     super.initState();
   }
 
   getCacheddata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      name = prefs.getString('name')!;
+      name = prefs.getString("User_Name")!;
+      phone = prefs.getInt("User_phone")!;
     });
   }
 
@@ -96,8 +97,8 @@ class _SettingPageState extends State<SettingPage> {
                     const SizedBox(
                       height: 3,
                     ),
-                    const Text(
-                      '+91 87806 54420',
+                    Text(
+                      "+91-" + phone.toString(),
                       style: TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],

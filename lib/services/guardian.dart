@@ -6,7 +6,7 @@ class GuardianService {
 
   Future<Response> getGuardian(String id) async {
     final response = await ApiV1Service.getRequest('/Api/viewGuardian/$id');
-    print(response);
+    // print(response);
     return response;
   }
 }
