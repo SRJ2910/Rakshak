@@ -4,7 +4,7 @@ import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/model/sos_message.dart';
 import 'package:rakshak/pages/login.dart';
 import 'package:rakshak/services/auth.dart';
-import 'package:rakshak/services/sos_message.dart';
+import 'package:rakshak/services/sos_message_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xen_popup_card/xen_card.dart';
 

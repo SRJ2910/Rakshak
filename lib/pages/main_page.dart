@@ -7,6 +7,9 @@ import 'package:rakshak/pages/guardians.dart';
 import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/settings.dart';
 import 'package:rakshak/services/guardian.dart';
+import 'package:rakshak/services/sos_message_user.dart';
+import 'package:rakshak/utils/global.dart';
+import 'package:rakshak/utils/locator.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({
@@ -168,21 +171,28 @@ class _MainPageState extends State<MainPage> {
                             ],
                           ),
                         ),
-                        Column(
-                          children: [
-                            CustomIcon(
-                              iconPath:
-                                  'assets/edgesensor_high_FILL0_wght400_GRAD0_opsz48.svg',
-                              iconLabel: 'shake',
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(
-                                'Safe Shake',
-                                style: TextStyle(fontSize: 12),
+                        GestureDetector(
+                          onTap: () {
+                            SosMessageService().sendSos().then((value) =>
+                                locator<GlobalServices>()
+                                    .successSnackBar("SOS sent successfully ✔"));
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                iconPath:
+                                    'assets/edgesensor_high_FILL0_wght400_GRAD0_opsz48.svg',
+                                iconLabel: 'shake',
                               ),
-                            )
-                          ],
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  'Safe Shake',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         Column(
                           children: [
