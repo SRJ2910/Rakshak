@@ -73,62 +73,63 @@ class LoginPage extends StatelessWidget {
                       return null;
                     },
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 45, bottom: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                            width: 5,
-                            height: 5,
-                          ),
-                          TextButton(
-                            onPressed: () async {
-                              bool check =
-                                  await auth.signInRequest(_signUpInput);
-                              if (check) {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomePage(),
-                                  ),
-                                  (route) => false,
-                                );
-                              } else {
-                                locator<GlobalServices>()
-                                    .errorSnackBar("Invalid Credentials");
-                              }
-                            },
-                            child: Container(
-                                alignment: Alignment.centerRight,
-                                width: 125,
-                                decoration: BoxDecoration(
-                                    color: kMarronColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: kMarronColor,
-                                          offset: Offset(2.0, 2.0))
-                                    ]),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.all(16.0),
-                                      child: Text(
-                                        'LOGIN',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                        height: 5,
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          bool check =
+                              await auth.signInRequest(_signUpInput);
+                          if (check) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                              (route) => false,
+                            );
+                          } else {
+                            locator<GlobalServices>()
+                                .errorSnackBar("Invalid Credentials");
+                          }
+                        },
+                        child: Container(
+                            alignment: Alignment.centerRight,
+                            width: 125,
+                            decoration: BoxDecoration(
+                                color: kMarronColor,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: kMarronColor,
+                                      offset: Offset(2.0, 2.0))
+                                ]),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                      color: Colors.white,
                                     ),
-                                    Icon(Icons.arrow_back, color: Colors.white),
-                                  ],
-                                )),
-                          ),
-                        ],
-                      )),
+                                  ),
+                                ),
+                                Icon(Icons.arrow_back, color: Colors.white),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               Expanded(flex: 2, child: Container()),
