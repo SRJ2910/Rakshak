@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
+import 'package:rakshak/model/sos_message.dart';
 import 'package:rakshak/pages/login.dart';
 import 'package:rakshak/services/auth.dart';
+import 'package:rakshak/services/sos_message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xen_popup_card/xen_card.dart';
 
@@ -18,10 +20,12 @@ class _SettingPageState extends State<SettingPage> {
   bool statusLocation = false;
   String name = "";
   String phone = "";
+  String id = "";
 
   @override
   void initState() {
     getCacheddata();
+    getSOSmessagePref();
     super.initState();
   }
 
@@ -30,6 +34,19 @@ class _SettingPageState extends State<SettingPage> {
     setState(() {
       name = prefs.getString("User_Name")!;
       phone = prefs.getString("User_phone")!;
+      id = prefs.getString("User_id")!;
+    });
+  }
+
+  changeSOSmessagePref(String message) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("sosMessage", message);
+  }
+
+  getSOSmessagePref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _globalMessage = prefs.getString("sosMessage")!;
     });
   }
 
@@ -40,11 +57,11 @@ class _SettingPageState extends State<SettingPage> {
       style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
     ), // To remove shadow from appbar
   );
-
   String? _message = "Message A";
   String _editedMessage = "";
   String _globalMessage = "Message A"; // Final value
   bool _editEnabled = false;
+  final SosMessage _sosMessage = SosMessage();
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +131,7 @@ class _SettingPageState extends State<SettingPage> {
                           height: 3,
                         ),
                         Text(
-                          "+91-" + phone.toString(),
+                          "+91-" + phone,
                           style:
                               const TextStyle(color: Colors.grey, fontSize: 12),
                         ),
@@ -279,14 +296,24 @@ class _SettingPageState extends State<SettingPage> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 50),
                         child: StatefulBuilder(
-                          builder: (BuildContext context, StateSetter setState) {
+                          builder:
+                              (BuildContext context, StateSetter setState) {
                             return XenPopupCard(
                               appBar: appBar,
                               body: Column(
                                 children: [
-                                  Text('Your current message:', style: TextStyle(fontWeight: FontWeight.bold)),
-                                  SizedBox(height: 4,),
-                                  Expanded(child: SingleChildScrollView(child: Text(_globalMessage, textAlign: TextAlign.center,))),
+                                  Text('Your current message:',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Expanded(
+                                      child: SingleChildScrollView(
+                                          child: Text(
+                                    _globalMessage,
+                                    textAlign: TextAlign.center,
+                                  ))),
                                   Row(
                                     children: [
                                       Radio<String>(
@@ -370,11 +397,11 @@ class _SettingPageState extends State<SettingPage> {
                                       Flexible(
                                         child: TextFormField(
                                           onChanged: (value) {
-                                            if(_message=="custom_message"){
+                                            if (_message == "custom_message") {
                                               setState(() {
-                                              _editedMessage = value;
-                                              _globalMessage = _editedMessage;
-                                            });
+                                                _editedMessage = value;
+                                                _globalMessage = _editedMessage;
+                                              });
                                             }
                                           },
                                           enabled: _editEnabled,
@@ -399,8 +426,19 @@ class _SettingPageState extends State<SettingPage> {
                                           width: 1,
                                         ),
                                         TextButton(
-                                          onPressed: () =>
-                                              Navigator.of(context).pop(true),
+                                          onPressed: () {
+                                            _sosMessage.message =
+                                                _globalMessage;
+                                            SosMessageService()
+                                                .updateSosMessage(
+                                                    id, _sosMessage)
+                                                .then((value) {
+                                              changeSOSmessagePref(
+                                                  _globalMessage);
+                                              Navigator.pop(context);
+                                            });
+                                            // Navigator.of(context).pop(true);
+                                          },
                                           child: const Text(
                                             'SAVE',
                                             style: TextStyle(

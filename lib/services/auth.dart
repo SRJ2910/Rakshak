@@ -31,6 +31,7 @@ class AuthService {
     await prefs.setString("User_Name", response.data['name']);
     await prefs.setString("User_phone", response.data['phone']);
     await prefs.setString("User_id", response.data['_id']);
+    await prefs.setString("sosMessage", response.data['customText']);
 
     List<Cookie> cookies = [Cookie("userId", response.data['_id'])];
     final cj = await ApiV1Service.getCookieJar();
