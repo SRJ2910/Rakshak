@@ -2,7 +2,7 @@ class Guardian {
   Guardian({this.guardianName, this.guardianPhone});
 
   String? guardianName;
-  int? guardianPhone;
+  String? guardianPhone;
 
   factory Guardian.fromMap(Map<String, dynamic> json) => Guardian(
         guardianName: json["name"],
