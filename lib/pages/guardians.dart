@@ -50,41 +50,38 @@ class _GuardiansState extends State<Guardians> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 24, top: 8, bottom: 8),
-            child: Text(
-              'My Guardians',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 24, top: 8, bottom: 8),
+              child: Text(
+                'My Guardians',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              ),
             ),
-          ),
-          loading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: kMarronColor,
-                  ),
-                )
-              : guardian.isEmpty
-                  ? const Center(
-                      child: Text("No Guardians Added"),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                          itemCount: guardian.length,
-                          itemBuilder: (context, index) {
-                            return CustomListTile(
-                                title: guardian[index].guardianName ?? "",
-                                subtitle:
-                                    guardian[index].guardianPhone.toString(),
-                                icon: Icons.people);
-                          }),
-                    )
-        ],
-      ),
-    ));
+            loading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: kMarronColor,
+                    ),
+                  )
+                : guardian.isEmpty
+                    ? const Center(
+                        child: Text("No Guardians Added"),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: guardian.length,
+                            itemBuilder: (context, index) {
+                              return CustomListTile(
+                                  title: guardian[index].guardianName ?? "",
+                                  subtitle:
+                                      guardian[index].guardianPhone.toString(),
+                                  icon: Icons.people);
+                            }),
+                      )
+          ],
+        ));
   }
 }

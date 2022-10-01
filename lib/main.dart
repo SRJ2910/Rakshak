@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/pages/login.dart';
 import 'package:rakshak/pages/splashscreen.dart';
 import 'package:rakshak/utils/global.dart';
@@ -19,8 +20,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Rakshak",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue,
+          inputDecorationTheme: const InputDecorationTheme(
+            focusedBorder:
+                UnderlineInputBorder(borderSide: BorderSide(color: kMarronColor)),
+          )),
       navigatorKey: locator<GlobalServices>().navigatorKey,
       home: const SplashScreen(),
     );
