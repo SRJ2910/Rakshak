@@ -29,7 +29,7 @@ class AuthService {
   Future<void> saveCookie(Response response) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("User_Name", response.data['name']);
-    await prefs.setInt("User_phone", response.data['phone']);
+    await prefs.setString("User_phone", response.data['phone']);
     await prefs.setString("User_id", response.data['_id']);
 
     List<Cookie> cookies = [Cookie("userId", response.data['_id'])];
@@ -55,7 +55,7 @@ class AuthService {
     final response = await ApiV1Service.postRequest(
       '/Api/signin',
       data: {
-        'email': input.email,
+        'phone': input.phoneNumber,
         'password': input.password,
       },
     );

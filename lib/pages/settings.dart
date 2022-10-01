@@ -16,7 +16,7 @@ class _SettingPageState extends State<SettingPage> {
   bool statusSafeShake = false;
   bool statusLocation = false;
   String name = "";
-  int phone = 0;
+  String phone = "";
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _SettingPageState extends State<SettingPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       name = prefs.getString("User_Name")!;
-      phone = prefs.getInt("User_phone")!;
+      phone = prefs.getString("User_phone")!;
     });
   }
 
@@ -98,7 +98,7 @@ class _SettingPageState extends State<SettingPage> {
                       height: 3,
                     ),
                     Text(
-                      "+91-" + phone.toString(),
+                      "+91-" + phone,
                       style: TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],

@@ -48,11 +48,17 @@ class LoginPage extends StatelessWidget {
                     height: 15,
                   ),
                   TextFieldShadow(
-                    labelText: 'EMAIL ID',
-                    icon: Icons.person,
-                    textInputType: TextInputType.emailAddress,
+                    labelText: 'PHONE NUMBER',
+                    icon: Icons.call,
+                    textInputType: TextInputType.phone,
                     onChanged: (e) {
-                      _signUpInput.email = e;
+                      _signUpInput.phoneNumber = e;
+                    },
+                    validator: (e) {
+                      if (_signUpInput.phoneNumber!.length < 10) {
+                        return "Phone number should be atleast 10-digit";
+                      }
+                      return null;
                     },
                   ),
                   const SizedBox(
