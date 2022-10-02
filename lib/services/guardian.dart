@@ -20,7 +20,6 @@ class GuardianService {
         "phone": phone,
       }),
     );
-    print(response);
     return response;
   }
 }

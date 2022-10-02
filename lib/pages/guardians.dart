@@ -137,6 +137,11 @@ class _GuardiansState extends State<Guardians> {
                                                 .errorSnackBar(
                                                     "Something went wrong");
                                           }
+                                        }).onError((error, stackTrace) {
+                                          locator<GlobalServices>()
+                                              .infoSnackBar(
+                                                  "Guardian does not exist");
+                                          Navigator.of(context).pop(true);
                                         });
                                       },
                                       child: Container(
