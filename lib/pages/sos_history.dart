@@ -52,7 +52,6 @@ class _SOShistoryState extends State<SOShistory> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
