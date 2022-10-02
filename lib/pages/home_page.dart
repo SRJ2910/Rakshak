@@ -3,6 +3,7 @@ import 'package:rakshak/custom_widgets/cutom_bottom_nav_bar.dart';
 import 'package:rakshak/pages/guardian_mode.dart';
 import 'package:rakshak/pages/guardians.dart';
 import 'package:rakshak/pages/sos_history.dart';
+import 'package:rakshak/pages/where_to.dart';
 import 'package:rakshak/services/sos_message_user.dart';
 import 'package:rakshak/utils/global.dart';
 import 'package:rakshak/utils/locator.dart';
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     Guardians(),
     SOShistory(),
     GuardianMode(),
+    WhereTo(),
   ];
 
   @override

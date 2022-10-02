@@ -112,21 +112,26 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ],
                         ),
-                        Column(
-                          children: [
-                            CustomIcon(
-                              iconPath:
-                                  'assets/share_location_FILL0_wght400_GRAD0_opsz48.svg',
-                              iconLabel: 'WhereTo',
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(
-                                'Where To',
-                                style: TextStyle(fontSize: 12),
+                        GestureDetector(
+                          onTap: () {
+                            index.value = 4;
+                          },
+                          child: Column(
+                            children: [
+                              CustomIcon(
+                                iconPath:
+                                    'assets/share_location_FILL0_wght400_GRAD0_opsz48.svg',
+                                iconLabel: 'WhereTo',
                               ),
-                            )
-                          ],
+                              const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Text(
+                                  'Where To',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
