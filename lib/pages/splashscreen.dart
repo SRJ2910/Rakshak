@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/login.dart';
 import 'package:rakshak/pages/main_page.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final isAuthenticated = cookies.isNotEmpty;
     print(cookies.toList());
     Future.delayed(
-      const Duration(milliseconds: 6000),
+      const Duration(milliseconds: 3000),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute<void>(
@@ -40,19 +41,45 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       primary: false,
-      // appBar: AppBar(
-      //   systemOverlayStyle: const SystemUiOverlayStyle(
-      //     statusBarIconBrightness: Brightness.dark,
-      //     statusBarColor: Colors.blue,
-      //   ),
-      //   backgroundColor: Colors.blue,
-      // ),
-      // backgroundColor: Colors.blue,
       body: Center(
-        // child: SvgPicture.asset("assets/icon/splashlogo.svg"),
-        child: Text("splash screen"),
+        child: SizedBox.expand(
+          child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: <Color>[
+                    Color(0xffBA324F),
+                    Color(0xffD62839),
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset('assets/logo.png'),
+                  const Text(
+                    'Rakshak',
+                    style: TextStyle(
+                      fontSize: 54,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFFFFC4C4),
+                    ),
+                  ),
+                  const Text(
+                    'We protect you!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xFFFFC4C4),
+                    ),
+                  ),
+                ],
+              )
+              ),
+        ),
       ),
     );
   }
