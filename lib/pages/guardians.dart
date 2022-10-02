@@ -18,6 +18,8 @@ class Guardians extends StatefulWidget {
 class _GuardiansState extends State<Guardians> {
   late List<Guardian> guardian;
   bool loading = true;
+  String addPhone = "";
+
   @override
   void initState() {
     guardian = [];
@@ -38,7 +40,7 @@ class _GuardiansState extends State<Guardians> {
       );
       setState(() {
         loading = false;
-        guardian = fetchGuardians;
+        guardian = fetchGuardians.reversed.toList();
       });
     } else {
       locator<GlobalServices>().errorSnackBar("Something went wrong");
@@ -84,7 +86,11 @@ class _GuardiansState extends State<Guardians> {
                             body: Column(
                               children: [
                                 TextField(
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    setState(() {
+                                      addPhone = value;
+                                    });
+                                  },
                                   cursorColor: kMarronColor,
                                   keyboardType: TextInputType.phone,
                                   decoration: const InputDecoration(
@@ -100,7 +106,8 @@ class _GuardiansState extends State<Guardians> {
                                   height: 24,
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     TextButton(
                                       onPressed: () {
@@ -116,15 +123,31 @@ class _GuardiansState extends State<Guardians> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pop(true);
+                                        GuardianService()
+                                            .addGuardian(addPhone)
+                                            .then((value) {
+                                          if (value.statusCode == 201) {
+                                            locator<GlobalServices>()
+                                                .successSnackBar(
+                                                    "Guardian added successfully");
+                                            Navigator.of(context).pop(true);
+                                            getGuardianList();
+                                          } else {
+                                            locator<GlobalServices>()
+                                                .errorSnackBar(
+                                                    "Something went wrong");
+                                          }
+                                        });
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: kMarronColor,
-                                          borderRadius: BorderRadius.circular(5),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                         child: const Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 16),
                                           child: Text(
                                             'ADD',
                                             style: TextStyle(
