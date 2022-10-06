@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -9,6 +10,7 @@ import 'package:rakshak/pages/settings.dart';
 import 'package:rakshak/services/sos_message_user.dart';
 import 'package:rakshak/utils/global.dart';
 import 'package:rakshak/utils/locator.dart';
+import 'package:vibration/vibration.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({
@@ -220,9 +222,12 @@ class _MainPageState extends State<MainPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            SosMessageService().sendSos().then((value) =>
-                                locator<GlobalServices>().successSnackBar(
-                                    "SOS sent successfully ✔"));
+                            SosMessageService()
+                                .sendSos()
+                                .then((value) => locator<GlobalServices>()
+                                    .successSnackBar("SOS sent successfully ✔"))
+                                .whenComplete(
+                                    () => Vibration.vibrate(duration: 1000));
                           },
                           child: Column(
                             children: [
