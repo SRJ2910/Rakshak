@@ -172,7 +172,7 @@ class _SettingPageState extends State<SettingPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                GestureDetector(
+                InkWell(
                   child: Row(
                     children: [
                       const Icon(Icons.logout),

@@ -8,11 +8,19 @@ import 'package:rakshak/utils/locator.dart';
 import '../custom_widgets/constants.dart';
 import '../custom_widgets/text_field_shadow.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   AuthService auth = const AuthService();
+
   final SignUpInput _signUpInput = SignUpInput();
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,48 +99,58 @@ class LoginPage extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () async {
-                          bool check =
-                              await auth.signInRequest(_signUpInput);
-                          if (check) {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                              (route) => false,
-                            );
-                          } else {
+                          setState(() {
+                            loading = true;
+                          });
+                          await auth
+                              .signInRequest(_signUpInput)
+                              .then((value) => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(),
+                                    ),
+                                    (route) => false,
+                                  ))
+                              .onError((error, stackTrace) {
                             locator<GlobalServices>()
                                 .errorSnackBar("Invalid Credentials");
-                          }
+                            setState(() {
+                              loading = false;
+                            });
+                          });
                         },
-                        child: Container(
-                            alignment: Alignment.centerRight,
-                            width: 125,
-                            decoration: BoxDecoration(
+                        child: loading
+                            ? const CircularProgressIndicator(
                                 color: kMarronColor,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: kMarronColor,
-                                      offset: Offset(2.0, 2.0))
-                                ]),
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Text(
-                                    'LOGIN',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                              )
+                            : Container(
+                                alignment: Alignment.centerRight,
+                                width: 125,
+                                decoration: BoxDecoration(
+                                    color: kMarronColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: kMarronColor,
+                                          offset: Offset(2.0, 2.0))
+                                    ]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Text(
+                                        'LOGIN',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Icon(Icons.arrow_back, color: Colors.white),
-                              ],
-                            )),
+                                    Icon(Icons.arrow_forward,
+                                        color: Colors.white),
+                                  ],
+                                )),
                       ),
                     ],
                   ),
