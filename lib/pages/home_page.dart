@@ -17,9 +17,6 @@ final index = ValueNotifier<int>(0);
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  // static int index = 0;
-
   @override
   State<HomePage> createState() => _HomePageState();
 }

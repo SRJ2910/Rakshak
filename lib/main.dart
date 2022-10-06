@@ -20,11 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Rakshak",
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          inputDecorationTheme: const InputDecorationTheme(
-            focusedBorder:
-                UnderlineInputBorder(borderSide: BorderSide(color: kMarronColor)),
-          )),
+          primarySwatch: Colors.blue,),
       navigatorKey: locator<GlobalServices>().navigatorKey,
       home: const SplashScreen(),
     );

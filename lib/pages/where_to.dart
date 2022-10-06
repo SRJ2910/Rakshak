@@ -29,13 +29,13 @@ class _WhereToState extends State<WhereTo> {
           ),
           Expanded(flex: 1, child: Container()),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+            padding: EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               children: [
                 TextField(
                   onChanged: (value) {},
                   cursorColor: kMarronColor,
-                  decoration: const InputDecoration(
+                  decoration: const InputDecoration (
                     focusColor: kMarronColor,
                     hintText: "Start",
                     icon: Icon(
