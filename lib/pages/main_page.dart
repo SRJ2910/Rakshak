@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,25 +27,40 @@ class _MainPageState extends State<MainPage> {
   final Widget svg = SvgPicture.asset('assets/icons8-settings.svg',
       semanticsLabel: 'Acme Logo');
 
+  @override
   void initState() {
-    getCurrentLocation();
     super.initState();
+    locationSubscription =
+        location.onLocationChanged.listen((LocationData currentLocation) {
+      getCurrentLocation();
+    });
+  }
+
+  @override
+  void dispose() {
+    locationSubscription!.cancel();
+    super.dispose();
   }
 
   LocationData? currentLocation;
+  Location location = Location();
+  StreamSubscription<LocationData>? locationSubscription;
 
   void getCurrentLocation() {
-    Location location = Location();
     location.getLocation().then((location) {
-      setState(() {
-        currentLocation = location;
-      });
+      if (mounted) {
+        setState(() {
+          currentLocation = location;
+        });
+      }
     });
 
     location.onLocationChanged.listen((event) {
-      setState(() {
-        currentLocation = event;
-      });
+      if (mounted) {
+        setState(() {
+          currentLocation = event;
+        });
+      }
     });
   }
 
@@ -93,34 +110,145 @@ class _MainPageState extends State<MainPage> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 24),
-              child: currentLocation == null
-                  ? Text('loading')
-                  : Container(
-                      height: 200,
-                      child: GoogleMap(
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(currentLocation!.latitude!,
-                                currentLocation!.longitude!),
-                            zoom: 14),
-                        markers: {
-                          Marker(
-                            markerId: MarkerId("current"),
-                            position: LatLng(currentLocation!.latitude!,
-                                currentLocation!.longitude!),
-                          )
-                        },
-                        circles: {
-                          Circle(
-                              circleId: CircleId("demo"),
-                              center: LatLng(currentLocation!.latitude!,
-                                  currentLocation!.longitude!),
-                              radius: 400,
-                              fillColor: Colors.redAccent.withOpacity(0.4),
-                              strokeColor: Colors.transparent),
-                        },
-                      ),
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black12, offset: Offset(2.0, 2.0))
+                      ],
                     ),
+                    child: Column(
+                      children: [
+                        currentLocation == null
+                            ? SizedBox(
+                                height: 200,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      'Loading Map',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    CircularProgressIndicator(
+                                      color: kMarronColor,
+                                    ),
+                                  ],
+                                ))
+                            : SizedBox(
+                                height: 200,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                  child: GoogleMap(
+                                    mapType: MapType.normal,
+                                    initialCameraPosition: CameraPosition(
+                                        target: LatLng(
+                                            currentLocation!.latitude!,
+                                            currentLocation!.longitude!),
+                                        zoom: 14),
+                                    markers: {
+                                      Marker(
+                                        markerId: MarkerId("current"),
+                                        position: LatLng(
+                                            currentLocation!.latitude!,
+                                            currentLocation!.longitude!),
+                                      )
+                                    },
+                                    circles: {
+                                      Circle(
+                                          circleId: CircleId("demo"),
+                                          center: LatLng(
+                                              currentLocation!.latitude!,
+                                              currentLocation!.longitude!),
+                                          radius: 700,
+                                          fillColor:
+                                              Colors.red.withOpacity(0.8),
+                                          strokeColor: Colors.transparent),
+                                      Circle(
+                                          circleId: CircleId("demo1"),
+                                          center: const LatLng(
+                                              23.15672201557533,
+                                              72.67011490810096),
+                                          radius: 700,
+                                          fillColor:
+                                              Colors.green.withOpacity(0.7),
+                                          strokeColor: Colors.transparent),
+                                      Circle(
+                                          circleId: CircleId("demo2"),
+                                          center: const LatLng(
+                                              23.163557453739713,
+                                              72.68295538453259),
+                                          radius: 700,
+                                          fillColor:
+                                              Colors.blue.withOpacity(0.7),
+                                          strokeColor: Colors.transparent),
+                                      Circle(
+                                          circleId: CircleId("demo3"),
+                                          center: const LatLng(
+                                              23.166843854864837,
+                                              72.65524551874958),
+                                          radius: 700,
+                                          fillColor:
+                                              Colors.red.withOpacity(0.7),
+                                          strokeColor: Colors.transparent),
+                                    },
+                                  ),
+                                ),
+                              ),
+                        Container(
+                          color: Colors.green,
+                          height: 6,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                "Current Location",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(23, 86, 118, 1),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20),
+                              ),
+                              Icon(
+                                Icons.send_sharp,
+                                color: Color.fromRGBO(23, 86, 118, 1),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.circle,
+                          color: Colors.green,
+                          size: 15,
+                        ),
+                        Container(width: 10),
+                        const Text("Don't worry! You are in safe zone"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               decoration: BoxDecoration(
