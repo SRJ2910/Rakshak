@@ -44,6 +44,9 @@ dependencies:
   get_it: ^7.2.0
   shared_preferences: ^2.0.15
   xen_popup_card: ^0.0.1
+  flutter_background: ^1.1.0
+  google_maps_flutter: ^2.2.1
+  location: ^4.4.0
 
 dev_dependencies:
   flutter_test:

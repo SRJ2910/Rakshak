@@ -8,7 +8,6 @@ import 'package:rakshak/services/sos_message_user.dart';
 import 'package:rakshak/utils/global.dart';
 import 'package:rakshak/utils/locator.dart';
 import 'package:shake/shake.dart';
-// import 'globals.dart' as globals;
 
 import 'main_page.dart';
 
@@ -16,9 +15,6 @@ final index = ValueNotifier<int>(0);
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  // static int index = 0;
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -36,12 +32,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     /// shake detector
     ShakeDetector detector = ShakeDetector.autoStart(
-        minimumShakeCount: 5,
+        minimumShakeCount: 3,
         onPhoneShake: () {
           SosMessageService().sendSos().then((value) =>
               locator<GlobalServices>()
                   .successSnackBar("SOS sent successfully ✔"));
-          print("Detector lga diya h :)");
         });
 
     return Scaffold(

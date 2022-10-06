@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:rakshak/custom_widgets/constants.dart';
 import 'package:rakshak/custom_widgets/custom_icon.dart';
-import 'package:rakshak/pages/guardian_mode.dart';
-import 'package:rakshak/pages/guardians.dart';
 import 'package:rakshak/pages/home_page.dart';
 import 'package:rakshak/pages/settings.dart';
-import 'package:rakshak/services/guardian.dart';
 import 'package:rakshak/services/sos_message_user.dart';
 import 'package:rakshak/utils/global.dart';
 import 'package:rakshak/utils/locator.dart';
@@ -23,6 +22,28 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final Widget svg = SvgPicture.asset('assets/icons8-settings.svg',
       semanticsLabel: 'Acme Logo');
+
+  void initState() {
+    getCurrentLocation();
+    super.initState();
+  }
+
+  LocationData? currentLocation;
+
+  void getCurrentLocation() {
+    Location location = Location();
+    location.getLocation().then((location) {
+      setState(() {
+        currentLocation = location;
+      });
+    });
+
+    location.onLocationChanged.listen((event) {
+      setState(() {
+        currentLocation = event;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +90,36 @@ class _MainPageState extends State<MainPage> {
                 )
               ],
             ),
-            const Padding(
-                padding: EdgeInsets.symmetric(vertical: 24),
-                child: Card(
-                  color: Colors.grey,
-                  child: SizedBox(
-                    height: 200,
-                    width: 300,
-                  ),
-                )),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 24),
+              child: currentLocation == null
+                  ? Text('loading')
+                  : Container(
+                      height: 200,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                            target: LatLng(currentLocation!.latitude!,
+                                currentLocation!.longitude!),
+                            zoom: 14),
+                        markers: {
+                          Marker(
+                            markerId: MarkerId("current"),
+                            position: LatLng(currentLocation!.latitude!,
+                                currentLocation!.longitude!),
+                          )
+                        },
+                        circles: {
+                          Circle(
+                              circleId: CircleId("demo"),
+                              center: LatLng(currentLocation!.latitude!,
+                                  currentLocation!.longitude!),
+                              radius: 400,
+                              fillColor: Colors.redAccent.withOpacity(0.4),
+                              strokeColor: Colors.transparent),
+                        },
+                      ),
+                    ),
+            ),
             Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
@@ -179,8 +221,8 @@ class _MainPageState extends State<MainPage> {
                         GestureDetector(
                           onTap: () {
                             SosMessageService().sendSos().then((value) =>
-                                locator<GlobalServices>()
-                                    .successSnackBar("SOS sent successfully ✔"));
+                                locator<GlobalServices>().successSnackBar(
+                                    "SOS sent successfully ✔"));
                           },
                           child: Column(
                             children: [
