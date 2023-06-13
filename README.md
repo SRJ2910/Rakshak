@@ -1,16 +1,5 @@
-# rakshak
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Rakshak
+- This application provides a sense of security to the users using this app. Contains Save Our Soul (SOS) feature, tracking the location of the users, fake call features, Get Home Safe features. Apart from the SOS feature there is a shake detection feature which will enable an emergency call to the guardians sending them the victim’s current location.
+- SSIP GUJARAT : **Semifinalist**
+- Link : [Click here to download .apk](https://drive.google.com/file/d/16k9E5LsM-cdkqti-9u43CheuwMQBEAYt/view?usp=share_link)
+- Project Synopsis : [Click here to read](TM001677_AKAM_Hackathon.pdf)
